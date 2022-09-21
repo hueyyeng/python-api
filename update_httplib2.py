@@ -11,6 +11,7 @@ import tempfile
 import shutil
 import subprocess
 import sys
+import zipfile
 
 
 class Utilities:
@@ -27,8 +28,8 @@ class Utilities:
     def unzip_archive(self, file_path, file_name, temp_dir):
         """Unzip in a temp dir."""
         print(f"Unzipping {file_name}")
-        subprocess.check_output(
-            ["unzip", str(file_path), "-d", str(temp_dir)])
+        with zipfile.ZipFile(file_path, 'r') as zip_ref:
+            zip_ref.extractall(temp_dir)
 
     def remove_folder(self, path):
         """Remove a folder recursively."""
